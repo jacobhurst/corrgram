@@ -84,12 +84,22 @@ corrgram <-
     alpha <- ifelse(e1>0, atan(e2/e1), atan(e2/e1)+pi)
     ord <- order(alpha)
     x <- if(type=="data") x[,ord] else x[ord, ord]
-  } else if (order=="OLO") {
+  } else if (order=="OLO") { # Optimal Leaf Order
     distx <- dist(cmat)
     ss <- seriate(distx, method="OLO")
     ord <- get_order(ss)
     x <- if(type=="data") x[,ord] else x[ord,ord]
-  } else if(order!=FALSE){
+  } else if (order=="GW"){ # GW order
+  	  distx <- dist(cmat)
+    ss <- seriate(distx, method="GW")
+    ord <- get_order(ss)
+    x <- if(type=="data") x[,ord] else x[ord,ord]
+  	} else if (order=="HC"){
+  		distx <- dist(cmat)
+    ss <- seriate(distx, method="HC")
+    ord <- get_order(ss)
+    x <- if(type=="data") x[,ord] else x[ord,ord]
+  	} else if(order!=FALSE){
     stop("Unknown order argument in 'corrgram'.")
   }
 
